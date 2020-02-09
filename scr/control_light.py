@@ -19,11 +19,11 @@ def on_message(client, userdata, message): #ham callback nhan tin nhan tu broker
     #print("msg: ",str(msg))
     if (msg==0):
         GPIO.output(23,1) #TAT
-        client.publish("control/light/return","0") #tra ket qua ve cho server mqtt
+        client.publish("control/light/return","0",retain=True) #tra ket qua ve cho server mqtt
         print("return 0")
     else:
         GPIO.output(23,0)   #BAT
-        client.publish("control/light/return","1")
+        client.publish("control/light/return","1",retain=True) #rerain dc kich hoat
         print("return 1")
     
 def on_disconnect(client, userdata, rc): #neu disconnect?
@@ -39,7 +39,7 @@ client.connect(broker_address)
 try:
         client.loop_start() #can thiet de ham callback co tac dung, cx co tac dung khi disconnect se tu dong reconnect
         client.subscribe("control/light")
-        client.publish("controll/light/return","0")
+        client.publish("controll/light/return","0",retain=True)
         while True:
             #print("msg: ",str(msg))
             j=1 #cho vui
