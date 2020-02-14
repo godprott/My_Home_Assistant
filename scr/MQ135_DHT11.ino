@@ -49,7 +49,7 @@ void loop() {
   Serial.print(temperature);
   Serial.print(" | Humidity : ");
   Serial.println(humidity);
- float correctedPPM = mq135_sensor.getPPM(); //getCorrectedPPM(temperature, humidity);
+ float correctedPPM = mq135_sensor.getCorrectedPPM(temperature, humidity);
   Serial.print("PPM: ");
   Serial.print(correctedPPM);
   Serial.println("ppm");
