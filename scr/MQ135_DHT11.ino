@@ -22,7 +22,7 @@ long last = 0;
 char message[100]; // lay gia tri tu mqtt server
 
 #define DHTTYPE DHT11
-#define DHTPIN D0
+#define DHTPIN D1
 DHT dht(DHTPIN, DHTTYPE);
 
 #define PIN_MQ135 A0    //Khai báo pin nối với chân AO
@@ -49,7 +49,7 @@ void loop() {
   Serial.print(temperature);
   Serial.print(" | Humidity : ");
   Serial.println(humidity);
- float correctedPPM = mq135_sensor.getCorrectedPPM(temperature, humidity);
+ float correctedPPM = mq135_sensor.getPPM(); //getCorrectedPPM(temperature, humidity);
   Serial.print("PPM: ");
   Serial.print(correctedPPM);
   Serial.println("ppm");
