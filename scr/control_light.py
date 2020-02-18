@@ -39,7 +39,8 @@ client.connect(broker_address)
 try:
         client.loop_start() #can thiet de ham callback co tac dung, cx co tac dung khi disconnect se tu dong reconnect
         client.subscribe("control/light")
-        client.publish("controll/light/return","0",retain=True)
+		GPIO.output(23,1) #TAT
+        client.publish("control/light/return","0",retain=True)
         while True:
             #print("msg: ",str(msg))
             j=1 #cho vui
