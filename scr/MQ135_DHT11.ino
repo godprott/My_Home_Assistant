@@ -24,9 +24,10 @@ PubSubClient client(espClient);
 #define delay_topic "setting/mq135dht11"
 #define delay_topic_return "setting/mq135dht11/return"
 
-int delaytime=5000;
-long last = 0;
+int delaytime=5;
+unsigned long last = 0;
 char message[100]; // lay gia tri tu mqtt server
+int check =1;
 
 #define DHTTYPE DHT11
 #define DHTPIN D1
@@ -52,6 +53,13 @@ void loop() {
   }
   client.loop();
 
+  if(check == 1){
+  delaytime = delaytime*1000;
+  check=0;
+  }
+ // Serial.print(delaytime);
+  if((unsigned long)(millis()-last) > delaytime)
+  {
   dateTime = NTPch.getNTPtime(7.0, 0);
    byte Hour = dateTime.hour;      // Gio
    byte Minute = dateTime.minute;  // Phut
@@ -79,7 +87,8 @@ void loop() {
   client.publish(humidity_topic, String(humidity).c_str(), true);    
   client.publish(air_quality_topic, String(correctedPPM).c_str(), true);
   client.publish(time_send_topic,lolol.c_str() , true);   
-  delay(delaytime); 
+  last = millis();
+  }
 }
 
 void setup_wifi() {
@@ -111,8 +120,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
    Serial.println("Message: " + msgString);
   Serial.println();
   delaytime = msgString.toInt();
-  delaytime = delaytime*1000;
   client.publish(delay_topic_return,msgString.c_str(), true);
+  check=1;
 }
 
 void reconnect() {
