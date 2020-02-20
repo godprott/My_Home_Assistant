@@ -83,9 +83,9 @@ void reconnect() {
     if (client.connect("ESP8266Client",mqtt_user, mqtt_password)) {
       Serial.println("connected");
      // Can sub topic nao thi viet tiep duoi day:
-     client.subscribe(sub_topic);
-     digitalWrite(RELAYPIN,HIGH); //tat
+	 digitalWrite(RELAYPIN,HIGH); //tat
      client.publish(pub_topic,"0", true);
+     client.subscribe(sub_topic);   
     } else {
       Serial.print("failed, error = ");
       Serial.print(client.state());

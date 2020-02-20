@@ -1,7 +1,10 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include <NTPtimeESP.h>
 #include "DHT.h"
 #include "MQ135.h"
+
+NTPtime NTPch("ch.pool.ntp.org");
 
 #define wifi_ssid "Manh"
 #define wifi_password "manhvan1012"
@@ -9,7 +12,7 @@
 #define mqtt_server "192.168.1.167"
 #define mqtt_user "mymqtt"      
 #define mqtt_password "mymqtt" 
-const uint16_t mqtt_port =  1883;
+const uint16_t mqtt_port = 1883;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -17,7 +20,11 @@ PubSubClient client(espClient);
 #define temperature_topic "sensor/temperature"  
 #define humidity_topic "sensor/humidity"
 #define air_quality_topic "sensor/airquality"
+#define time_send_topic "sensor/timesend"
+#define delay_topic "setting/mq135dht11"
+#define delay_topic_return "setting/mq135dht11/return"
 
+int delaytime=5000;
 long last = 0;
 char message[100]; // lay gia tri tu mqtt server
 
@@ -27,6 +34,8 @@ DHT dht(DHTPIN, DHTTYPE);
 
 #define PIN_MQ135 A0    //Khai báo pin nối với chân AO
 MQ135 mq135_sensor = MQ135(PIN_MQ135);   //Khai báo đối tượng thư viện
+
+strDateTime dateTime;
 
 void setup() {
   Serial.begin(9600);     
@@ -43,6 +52,16 @@ void loop() {
   }
   client.loop();
 
+  dateTime = NTPch.getNTPtime(7.0, 0);
+   byte Hour = dateTime.hour;      // Gio
+   byte Minute = dateTime.minute;  // Phut
+   byte Second = dateTime.second;  // Giay
+   int Year = dateTime.year;       // Nam
+   byte Month = dateTime.month;    // Thang
+   byte Day =dateTime.day;         // Ngay
+
+  String lolol = String(Hour)+"h/"+String(Minute)+"p/"+String(Second)+"s "+String(Day)+"/"+String(Month)+"/"+String(Year);
+
   float humidity = dht.readHumidity();
   float temperature = dht.readTemperature();
   Serial.print("Temperature : ");
@@ -56,10 +75,11 @@ void loop() {
   float resistance = mq135_sensor.getResistance();
   Serial.print("\t Resistance: ");
   Serial.print(resistance);
-  client.publish(temperature_topic, String(temperature).c_str(), false);   //false: ko cho tin nhan giu lai tren mqtt server
-  client.publish(humidity_topic, String(humidity).c_str(), false);    
-  client.publish(air_quality_topic, String(correctedPPM).c_str(), false);   
-  delay(300000); //5p
+  client.publish(temperature_topic, String(temperature).c_str(), true);   //false: ko cho tin nhan giu lai tren mqtt server
+  client.publish(humidity_topic, String(humidity).c_str(), true);    
+  client.publish(air_quality_topic, String(correctedPPM).c_str(), true);
+  client.publish(time_send_topic,lolol.c_str() , true);   
+  delay(delaytime); 
 }
 
 void setup_wifi() {
@@ -90,6 +110,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
    String msgString = String(message);
    Serial.println("Message: " + msgString);
   Serial.println();
+  delaytime = msgString.toInt();
+  delaytime = delaytime*1000;
+  client.publish(delay_topic_return,msgString.c_str(), true);
 }
 
 void reconnect() {
@@ -98,7 +121,8 @@ void reconnect() {
     if (client.connect("ESP8266Client",mqtt_user, mqtt_password)) {
       Serial.println("connected");
      // Can sub topic nao thi viet tiep duoi day:
-     
+     client.publish(delay_topic_return,String(delaytime).c_str(), true);
+     client.subscribe(delay_topic);
     } else {
       Serial.print("failed, error = ");
       Serial.print(client.state());
