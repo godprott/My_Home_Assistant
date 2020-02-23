@@ -61,6 +61,7 @@ void loop() {
   if((unsigned long)(millis()-last) > delaytime)
   {
   dateTime = NTPch.getNTPtime(7.0, 0);
+  if(dateTime.valid){
    byte Hour = dateTime.hour;      // Gio
    byte Minute = dateTime.minute;  // Phut
    byte Second = dateTime.second;  // Giay
@@ -88,6 +89,7 @@ void loop() {
   client.publish(air_quality_topic, String(correctedPPM).c_str(), true);
   client.publish(time_send_topic,lolol.c_str() , true);   
   last = millis();
+  }
   }
 }
 
