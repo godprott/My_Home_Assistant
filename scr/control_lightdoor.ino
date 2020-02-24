@@ -80,7 +80,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 void reconnect() {
   while (!client.connected()) {
     Serial.print("Connecting to MQTT broker ...");
-    if (client.connect("ESP8266Client",mqtt_user, mqtt_password)) {
+    if (client.connect("ESP8266DoorLight",mqtt_user, mqtt_password)) {
       Serial.println("connected");
      // Can sub topic nao thi viet tiep duoi day:
 	 digitalWrite(RELAYPIN,HIGH); //tat
