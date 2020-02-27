@@ -1,0 +1,173 @@
+{
+    "data": {
+        "config": {
+            "resources": [
+                {
+                    "type": "js",
+                    "url": "/local/group-card.js?v=1"
+                }
+            ],
+            "title": "Nh\u00e0 c\u1ee7a \u0110\u1eb9p Trai Boy",
+            "views": [
+                {
+                    "badges": [
+                        {
+                            "entity": "binary_sensor.updater"
+                        },
+                        {
+                            "entity": "person.dep_trai_boy"
+                        },
+                        {
+                            "entity": "sun.sun"
+                        }
+                    ],
+                    "cards": [
+                        {
+                            "entity": "weather.nha_cua_dep_trai_boy",
+                            "type": "weather-forecast"
+                        },
+                        {
+                            "aspect_ratio": "50%",
+                            "camera_view": "live",
+                            "entity": "camera.camera",
+                            "image": "https://www.home-assistant.io/images/merchandise/shirt-frontpage.png",
+                            "name": "Camera",
+                            "show_name": true,
+                            "show_state": false,
+                            "type": "picture-entity"
+                        },
+                        {
+                            "entity": "script.1581051291141",
+                            "hold_action": {
+                                "action": "more-info"
+                            },
+                            "icon": "mdi:shield-off-outline",
+                            "icon_height": "34px",
+                            "name": "T\u1eaft Pi-hole trong 30 gi\u00e2y",
+                            "show_icon": true,
+                            "show_name": true,
+                            "tap_action": {
+                                "action": "toggle"
+                            },
+                            "theme": "default",
+                            "type": "entity-button"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "switch.camera_light_auto"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "theme": "Backend-selected",
+                            "title": "Control Light Camera",
+                            "type": "entities"
+                        },
+                        {
+                            "card": {
+                                "entities": [
+                                    "switch.camera_light_manual"
+                                ],
+                                "type": "entities"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "switch.camera_light_auto",
+                                    "state": "off"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "sensor.airquality",
+                                    "max": 1000,
+                                    "min": 0,
+                                    "name": "Air Quality",
+                                    "severity": {
+                                        "green": 0,
+                                        "red": 600,
+                                        "yellow": 450
+                                    },
+                                    "theme": "default",
+                                    "type": "gauge",
+                                    "unit": "ppm"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.humidity"
+                                        },
+                                        {
+                                            "entity": "sensor.temperature"
+                                        },
+                                        {
+                                            "entity": "sensor.delay_time_mq135_dht11"
+                                        },
+                                        {
+                                            "entity": "sensor.time_send_mq135_dht11"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "type": "entities"
+                                }
+                            ],
+                            "title": "Ch\u1ea5t l\u01b0\u1ee3ng kh\u00f4ng kh\u00ed trong nh\u00e0",
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "entity": "switch.light_door",
+                            "hold_action": {
+                                "action": "more-info"
+                            },
+                            "icon": "mdi:track-light",
+                            "icon_height": "77px",
+                            "name": "\u0110\u00e8n c\u1ea7u thang ngo\u00e0i",
+                            "show_icon": true,
+                            "show_name": true,
+                            "tap_action": {
+                                "action": "toggle"
+                            },
+                            "type": "entity-button"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "input_text.time_delay_mq135_dht11"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "type": "entities"
+                                },
+                                {
+                                    "entity": "script.1582191205172",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "icon": "mdi:checkbox-marked-outline",
+                                    "icon_height": "35px",
+                                    "name": "Save Delay MQ&DHT",
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "entity-button"
+                                }
+                            ],
+                            "title": "C\u00e0i \u0111\u1eb7t",
+                            "type": "vertical-stack"
+                        }
+                    ],
+                    "path": "default_view",
+                    "title": "Home"
+                }
+            ]
+        }
+    },
+    "key": "lovelace",
+    "version": 1
+}
