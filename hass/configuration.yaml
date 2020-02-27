@@ -1,0 +1,51 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+http:
+  base_url: nhatoi.duckdns.org:8123
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+#MQTT Broker
+mqtt:
+  broker: 192.168.1.167
+  username: mymqtt
+  password: mymqtt
+  discovery: True
+
+#Camera Streaming
+camera:
+  - platform: mjpeg # camera setup with motioneye
+    name: Camera
+    mjpeg_url: http://192.168.1.31:8081
+    still_image_url: http://192.168.1.31:8765/picture/1/current/?_username=admin&_signature=096b677510f552fcf9ea05cb6390f90a024aec34
+    username: admin
+    password: !secret camera_password
+
+#Pi-hole control
+pi_hole:
+  - host: '192.168.1.167'
+    name: 'pi_hole_control'
+    api_key: !secret pi_hole_api_key
+
+#Multi auth
+homeassistant:
+  auth_mfa_modules:
+    - type: totp
+  customize: !include customize.yaml
+
+switch: !include switch.yaml
+sensor: !include sensor.yaml
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+input_text: !include input_text.yaml
+
+

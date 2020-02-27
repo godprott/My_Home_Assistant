@@ -1,0 +1,31 @@
+- platform: mqtt
+  name: "Camera Light Manual"
+  state_topic: "control/light/return"
+  command_topic: "control/light"
+  payload_on: "1"
+  payload_off: "0"
+  state_on: "1"
+  state_off: "0"
+  optimistic: false
+  qos: 0
+  retain: true
+  
+- platform: mqtt
+  name: "Camera Light Auto"
+  command_topic: "null"
+  payload_on: "1"
+  payload_off: "0"
+  
+- platform: mqtt
+  name: "Light Door"
+  state_topic: "control/lightdoor/return"
+  command_topic: "control/lightdoor"
+  payload_on: "1"
+  payload_off: "0"
+  state_on: "1"
+  state_off: "0"
+  optimistic: false
+  qos: 0
+  retain: true
+
+

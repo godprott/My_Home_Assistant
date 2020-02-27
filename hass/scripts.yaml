@@ -1,0 +1,14 @@
+'1581051291141':
+  alias: Turn Off Pi_Hole
+  sequence:
+  - data:
+      duration: 00:00:30
+    service: pi_hole.disable
+'1582191205172':
+  alias: Set time delay MQ135 and DHT11
+  sequence:
+  - data:
+      payload_template: '{{ states.input_text.time_delay_mq135_dht11.state }}'
+      retain: true
+      topic: setting/mq135dht11
+    service: mqtt.publish

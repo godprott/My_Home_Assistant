@@ -1,0 +1,70 @@
+- id: '1580970718836'
+  alias: Bat_light_camera_tu_6h_toi
+  description: ''
+  trigger:
+  - hours: '*'
+    minutes: '*'
+    platform: time_pattern
+    seconds: '*'
+  condition:
+  - after: '18:00:00'
+    before: 06:00:00
+    condition: time
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: switch.camera_light_manual
+      state: 'off'
+  action:
+  - entity_id: switch.camera_light_manual
+    service: switch.turn_on
+- id: '1580971084056'
+  alias: Tat_light_camera_tu_6h_sang
+  description: ''
+  trigger:
+  - hours: '*'
+    minutes: '*'
+    platform: time_pattern
+    seconds: '*'
+  condition:
+  - after: 06:00:00
+    before: '18:00:00'
+    condition: time
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: switch.camera_light_manual
+      state: 'on'
+  action:
+  - entity_id: switch.camera_light_manual
+    service: switch.turn_off
+- id: '1580977058341'
+  alias: Tat toan bo 2 automation Light Camera
+  description: ''
+  trigger:
+  - entity_id: switch.camera_light_auto
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - entity_id:
+    - automation.tat_light_camera_tu_6h_sang
+    - automation.bat_light_camera_tu_6h_toi
+    service: automation.turn_off
+  - entity_id: switch.camera_light_manual
+    service: switch.turn_off
+- id: '1580977143929'
+  alias: Bat toan bo 2 automation Light Camera
+  description: ''
+  trigger:
+  - entity_id: switch.camera_light_auto
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - entity_id: switch.camera_light_manual
+    service: switch.turn_off
+  - entity_id: automation.bat_light_camera_tu_6h_toi,automation.tat_light_camera_tu_6h_sang
+    service: automation.turn_on

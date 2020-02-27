@@ -1,0 +1,25 @@
+- platform: mqtt
+  name: "Temperature"
+  state_topic: "sensor/temperature"
+  unit_of_measurement: '°C'
+- platform: mqtt
+  name: "Humidity"
+  expire_after: 0
+  state_topic: "sensor/humidity"
+  unit_of_measurement: '%'
+- platform: mqtt
+  name: "Airquality"
+  expire_after: 0
+  state_topic: "sensor/airquality"
+  unit_of_measurement: "ppm"
+- platform: mqtt
+  name: "Delay time MQ135 DHT11"
+  expire_after: 0
+  state_topic: "setting/mq135dht11/return"
+  unit_of_measurement: "s"
+- platform: mqtt
+  name: "Time send MQ135 DHT11"
+  expire_after: 0
+  state_topic: "sensor/timesend"
+
+    

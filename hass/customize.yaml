@@ -1,0 +1,2 @@
+switch.camera_light_auto:
+  assumed_state: false
