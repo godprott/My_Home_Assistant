@@ -19,7 +19,7 @@ PubSubClient client(espClient);
 #define control_topic "control/doorbell"
 #define control_topic_return "control/doorbell/return"
 #define time_run_topic "control/doorbell/time"
-#define time_run_topic_return "control/doorbell/time"
+#define time_run_topic_return "control/doorbell/time/return"
 #define RELAYPIN D7
 
 unsigned long last = 0;
@@ -139,18 +139,18 @@ void callback(char* topic, byte* payload, unsigned int length) {
    String msgString = String(message);
    Serial.println("Message: " + msgString);
   Serial.println();
-  if( topic == mode_topic)
+  if(strcmp(topic,mode_topic)==0)
   {
     mode = msgString.toInt();  // 1 2 3
     client.publish(mode_topic_return,msgString.c_str(), true);
   }
-  if(topic == time_run_topic)
+  if(strcmp(topic,time_run_topic)==0)
   {
     timerun = msgString.toInt();  // s
     client.publish(time_run_topic_return,msgString.c_str(), true);
     check=1;
   }
-   if(topic == control_topic)
+   if(strcmp(topic,control_topic)==0)
   {
     state = msgString.toInt();  //1 bat, 0 tat
     if(state == 1)
