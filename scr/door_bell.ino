@@ -142,7 +142,18 @@ void callback(char* topic, byte* payload, unsigned int length) {
   if(strcmp(topic,mode_topic)==0)
   {
     mode = msgString.toInt();  // 1 2 3
-    client.publish(mode_topic_return,msgString.c_str(), true);
+    if(mode==1)
+    {
+    client.publish(mode_topic_return,"Luôn tắt", true);
+    }
+    if(mode==3)
+    {
+    client.publish(mode_topic_return,"Bật liên tục", true);
+    }
+    if(mode==2)
+    {
+    client.publish(mode_topic_return,"Theo thời gian", true);
+    }
   }
   if(strcmp(topic,time_run_topic)==0)
   {
