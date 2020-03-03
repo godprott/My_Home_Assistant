@@ -1,4 +1,4 @@
-- Nếu cảm biến cửa mở, chuông báo động sẽ kêu. Có 3 chế độ cho chuông:
+﻿- Nếu cảm biến cửa mở, chuông báo động sẽ kêu. Có 3 chế độ cho chuông:
 	+ Luôn tắt
 	+ Bật đến khi cảm biến cửa đóng
 	+ Bật trong 1 khoảng thời gian được định sẵn
@@ -12,7 +12,7 @@
 -  Nếu chất lượng không khí phòng > 500ppm và máy lọc không khí chưa được bật thì bật máy lọc không khí,
  tắt máy lọc không khí khi máy lọc không khí đang bật và chất lượng không khí phòng < 450ppm (Tắt bật máy lọc thay bằng đèn)
 
--  Nếu trời bắt đầu sáng (sunrise) và chất lượng không khí < 450 ppm thì mở cửa sổ,
+-  Nếu trời bắt đầu sáng (sunrise) sau 2h và chất lượng không khí < 450 ppm thì mở cửa sổ,
  trời bắt đầu tối (sunset) hoặc chất lượng không khí >600ppm thì đóng cửa sổ (đóng, mở cửa sổ thay bằng đèn)
 
 - Trong thời gian từ 0h đến 6h sáng điều hòa hoạt động nếu cảm biến cửa phòng đóng và nhiệt độ phòng > 30 độ,
