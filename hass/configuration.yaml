@@ -2,6 +2,9 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
+#Theme
+frontend:
+  themes: !include theme_1.yaml
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
   base_url: nhatoi.duckdns.org:8123
@@ -47,5 +50,7 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 input_text: !include input_text.yaml
+input_select: !include input_select.yaml
+google_assistant: !include google_assistant.yaml
 
 

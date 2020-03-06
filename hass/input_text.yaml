@@ -1,3 +1,5 @@
 time_delay_mq135_dht11:
   name: Time Delay MQ135 DHT11 (s)
   pattern: "[1-9][0-9]{1,}"
+time_run_bell:
+  name: Time Run Bell Door (s)

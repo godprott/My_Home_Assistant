@@ -1,0 +1,6 @@
+project_id: hasspi-b837f
+service_account: !include hasspi-ggasist.json
+report_state: true
+exposed_domains:
+  - switch
+  - light

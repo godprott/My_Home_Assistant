@@ -1,0 +1,7 @@
+list_mode:
+  name: List Mode Bell
+  options:
+    - "Luôn Tắt"
+    - "Bật trong khoảng thời gian"
+    - "Bật liên tục"
+  icon: mdi:clipboard-list-outline

@@ -21,5 +21,29 @@
   name: "Time send MQ135 DHT11"
   expire_after: 0
   state_topic: "sensor/timesend"
+  
+  
+- platform: mqtt
+  name: "Sensor door"
+  expire_after: 960 # 16phut
+  state_topic: "sensor/sensordoor"
+  icon: mdi:home-lock
+  
+  
+- platform: mqtt
+  name: "Bell Mode"
+  expire_after: 0
+  state_topic: "control/doorbell/mode/return"
+- platform: mqtt
+  name: "Bell Time Run"
+  expire_after: 0
+  state_topic: "control/doorbell/time/return"
+  unit_of_measurement: "s"
+  icon: mdi:timer
+- platform: mqtt
+  name: "Bell State"
+  expire_after: 0
+  state_topic: "control/doorbell/return"
+  icon: mdi:alarm-bell
 
     

@@ -68,3 +68,232 @@
     service: switch.turn_off
   - entity_id: automation.bat_light_camera_tu_6h_toi,automation.tat_light_camera_tu_6h_sang
     service: automation.turn_on
+- id: '1583223412808'
+  alias: Bat_Bell_Theo_Door_Sensor
+  description: ''
+  trigger:
+  - entity_id: sensor.sensor_door
+    from: Đóng cửa
+    platform: state
+    to: Mở cửa
+  condition: []
+  action:
+  - data:
+      payload_template: 1
+      retain: true
+      topic: control/doorbell
+    service: mqtt.publish
+- id: '1583223412919'
+  alias: Tat_Bell_Theo_Door_Sensor
+  description: ''
+  trigger:
+  - entity_id: sensor.sensor_door
+    from: Mở cửa
+    platform: state
+    to: Đóng cửa
+  condition: []
+  action:
+  - data:
+      payload_template: 0
+      retain: true
+      topic: control/doorbell
+    service: mqtt.publish
+- id: '1583239761643'
+  alias: ZZZ_nhietdo45dobatcoibaochay
+  description: Nếu nhiệt độ > 45 độ, bật còi báo cháy (còi thay bằng đèn)
+  trigger:
+  - platform: template
+    value_template: '{{ states.sensor.temperature.state | float > 45 }}'
+  condition:
+  - condition: state
+    entity_id: switch.light_door
+    state: 'off'
+  action:
+  - data: {}
+    entity_id: switch.light_door
+    service: switch.turn_on
+- id: '1583241688840'
+  alias: ZZZ_Batdentrongnhakhicuamo
+  description: Bật đèn trong nhà khi cửa mở
+  trigger:
+  - entity_id: sensor.sensor_door
+    from: Đóng cửa
+    platform: state
+    to: Mở cửa
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.light_door
+    service: switch.turn_on
+- id: '1583241852036'
+  alias: ZZZ_Tatdenkhidongcuasau10s
+  description: tắt đèn khi cửa đóng sau 10s
+  trigger:
+  - entity_id: sensor.sensor_door
+    from: Mở cửa
+    platform: state
+    to: Đóng cửa
+  condition: []
+  action:
+  - delay: 00:00:10
+  - data: {}
+    entity_id: switch.light_door
+    service: switch.turn_off
+- id: '1583242504065'
+  alias: ZZZ_6htoi6hsang_cach2htuoicaytrong5proitat
+  description: Từ 6h sáng đến 6h tối, cứ cách 2h lại bật tưới cây trong 5 phút rồi
+    tắt
+  trigger:
+  - hours: /2
+    minutes: '0'
+    platform: time_pattern
+    seconds: '0'
+  condition:
+  - after: 06:00:00
+    before: '18:00:00'
+    condition: time
+  action:
+  - data: {}
+    entity_id: switch.light_door
+    service: switch.turn_on
+  - delay: 00:05:00
+  - data: {}
+    entity_id: switch.light_door
+    service: switch.turn_off
+- id: '1583242985649'
+  alias: ZZZ_bat_may_loc_khong_khi
+  description: Nếu chất lượng không khí phòng > 500ppm và máy lọc không khí chưa được
+    bật thì bật máy lọc không khí
+  trigger:
+  - hours: '*'
+    minutes: '*'
+    platform: time_pattern
+    seconds: '*'
+  condition:
+  - condition: state
+    entity_id: switch.light_door
+    state: 'off'
+  - condition: template
+    value_template: '{{ states.sensor.airquality.state | float > 500 }}'
+  action:
+  - data: {}
+    entity_id: switch.light_door
+    service: switch.turn_on
+- id: '1583243174588'
+  alias: ZZZ_tat_may_loc_khong_khi
+  description: tắt máy lọc không khí khi máy lọc không khí đang bật và chất lượng
+    không khí phòng < 450ppm
+  trigger:
+  - hours: '*'
+    minutes: '*'
+    platform: time_pattern
+    seconds: '*'
+  condition:
+  - condition: state
+    entity_id: switch.light_door
+    state: 'on'
+  - condition: template
+    value_template: '{{ states.sensor.airquality.state | float < 450 }}'
+  action:
+  - data: {}
+    entity_id: switch.light_door
+    service: switch.turn_off
+- id: '1583243736267'
+  alias: ZZZ_mo_cua_so
+  description: Nếu trời bắt đầu sáng (sunrise) sau 2h và chất lượng không khí < 450
+    ppm thì mở cửa sổ
+  trigger:
+  - event: sunrise
+    offset: 02:00:00
+    platform: sun
+  condition:
+  - condition: template
+    value_template: '{{ states.sensor.airquality.state | float < 450 }}'
+  - condition: state
+    entity_id: switch.light_door
+    state: 'off'
+  action:
+  - data: {}
+    entity_id: switch.light_door
+    service: switch.turn_on
+- id: '1583243823625'
+  alias: ZZZ_dong_cua_so
+  description: 'trời bắt đầu tối (sunset) hoặc chất lượng không khí >600ppm thì đóng
+    cửa sổ '
+  trigger:
+  - event: sunset
+    platform: sun
+  - platform: template
+    value_template: '{{ states.sensor.airquality.state | float > 600 }}'
+  condition:
+  - condition: state
+    entity_id: switch.light_door
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: switch.light_door
+    service: switch.turn_off
+- id: '1583244382529'
+  alias: ZZZ_bat_dieuhoa
+  description: Trong thời gian từ 0h đến 6h sáng điều hòa hoạt động nếu cảm biến cửa
+    phòng đóng và nhiệt độ phòng > 30 độ
+  trigger:
+  - hours: '*'
+    minutes: '*'
+    platform: time_pattern
+    seconds: '*'
+  condition:
+  - after: 00:00:00
+    before: 06:00:00
+    condition: time
+  - condition: state
+    entity_id: sensor.sensor_door
+    state: Đóng cửa
+  - condition: state
+    entity_id: switch.light_door
+    state: 'off'
+  - condition: template
+    value_template: '{{ states.sensor.temperature.state | float > 30 }}'
+  action:
+  - data: {}
+    entity_id: switch.light_door
+    service: switch.turn_on
+- id: '1583244878479'
+  alias: ZZZ_tat_dieu_hoa
+  description: tắt nếu hết thời gian hoặc nhiệt độ phòng < 25 độ hoặc cảm biến cửa
+    mở
+  trigger:
+  - hours: '*'
+    minutes: '*'
+    platform: time_pattern
+    seconds: '*'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: switch.light_door
+      state: 'on'
+    - condition: or
+      conditions:
+      - after: 06:00:00
+        before: '23:59:59'
+        condition: time
+      - condition: template
+        value_template: '{{ states.sensor.temperature.state | float < 25 }}'
+      - condition: state
+        entity_id: sensor.sensor_door
+        state: Mở cửa
+  action:
+  - data: {}
+    entity_id: switch.light_door
+    service: switch.turn_off
+- alias: Delay_Duck_DNS
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+  - delay: 00:01:00
+  - service: hassio.addon_restart
+    data:
+      addon: core_duckdns
+  id: '6969696969686'

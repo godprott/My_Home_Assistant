@@ -1,2 +1,4 @@
 switch.camera_light_auto:
   assumed_state: false
+sensor.pi_hole_control_ads_percentage_blocked_today:
+  friendly_name: "Today Blocked"

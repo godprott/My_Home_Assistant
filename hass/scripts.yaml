@@ -12,3 +12,22 @@
       retain: true
       topic: setting/mq135dht11
     service: mqtt.publish
+'1583220554014':
+  alias: Set time run door bell
+  sequence:
+  - data:
+      payload_template: '{{ states.input_text.time_run_bell.state }}'
+      retain: true
+      topic: control/doorbell/time
+    service: mqtt.publish
+'1583220846393':
+  alias: Set mode bell
+  sequence:
+  - data:
+      payload_template: '{% if is_state(''input_select.list_mode'', ''Luôn Tắt'')
+        %} 1 {% endif %} {% if is_state(''input_select.list_mode'', ''Bật trong khoảng
+        thời gian'') %} 2 {% endif %} {% if is_state(''input_select.list_mode'', ''Bật
+        liên tục'') %} 3 {% endif %}'
+      retain: true
+      topic: control/doorbell/mode
+    service: mqtt.publish
