@@ -30,24 +30,31 @@ def on_disconnect(client, userdata, rc): #neu disconnect?
     if rc != 0:
         print("Disconnect khong mong muon")
         
+def on_connect(client, userdata, flags, rc):
+    if rc==0:
+        print("connected OK Returned code=",rc)
+        client.subscribe("control/light")
+        GPIO.output(23,1) #TAT
+        client.publish("control/light/return","0",retain=True)
+    else:
+        print("Bad connection Returned code=",rc)
+        
+        
 broker_address="192.168.1.167"
 client = mqtt.Client("camera_control_light")
+client.on_connect=on_connect
+client.on_disconnect=on_disconnect
 client.on_message=on_message
 client.username_pw_set(username="mymqtt", password="mymqtt")
 client.connect(broker_address)
 
+
 try:
-        client.loop_start() #can thiet de ham callback co tac dung, cx co tac dung khi disconnect se tu dong reconnect
-        client.subscribe("control/light")
-		GPIO.output(23,1) #TAT
-        client.publish("control/light/return","0",retain=True)
-        while True:
-            #print("msg: ",str(msg))
-            j=1 #cho vui
+        client.loop_forever() #can thiet de ham callback co tac dung, cx co tac dung khi disconnect se tu dong reconnect
 except KeyboardInterrupt:
     pass
 except:
     pass
 finally:
-        client.loop_stop()
+        client.disconnect() # disconnect
         GPIO.cleanup()
