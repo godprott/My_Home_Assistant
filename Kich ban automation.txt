@@ -17,3 +17,10 @@
 
 - Trong thời gian từ 0h đến 6h sáng điều hòa hoạt động nếu cảm biến cửa phòng đóng và nhiệt độ phòng > 30 độ,
  tắt nếu hết thời gian hoặc nhiệt độ phòng < 25 độ hoặc cảm biến cửa mở (Tắt bật điều hòa thay bằng đèn)
+
+Thông báo:
+ - Cảnh báo khi cửa được mở quá 5 phút
+ - Thông báo khi có cháy
+ - Thông báo khi trời sắp mưa (Thay cảm biến mưa bằng đèn)
+ - Cảnh báo chất lượng không khí xấu > 500 ppm
+ - Cảnh báo khi cửa vừa mở
