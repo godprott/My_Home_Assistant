@@ -99,8 +99,9 @@
       topic: control/doorbell
     service: mqtt.publish
 - id: '1583239761643'
-  alias: ZZZ_nhietdo45dobatcoibaochay
-  description: Nếu nhiệt độ > 45 độ, bật còi báo cháy (còi thay bằng đèn)
+  alias: ZZZ_nhietdo45dobatcoibaochayvathongbao
+  description: Nếu nhiệt độ > 45 độ, bật còi báo cháy và thông báo (còi thay bằng
+    đèn)
   trigger:
   - platform: template
     value_template: '{{ states.sensor.temperature.state | float > 45 }}'
@@ -112,6 +113,12 @@
   - data: {}
     entity_id: switch.light_door
     service: switch.turn_on
+  - data:
+      data:
+        tag: Thong-bao-chay
+    data_template:
+      message: 'Có cháy, nhiệt độ là : {{ states(''sensor.temperature'') }}.'
+    service: notify.thong_bao
 - id: '1583241688840'
   alias: ZZZ_Batdentrongnhakhicuamo
   description: Bật đèn trong nhà khi cửa mở
@@ -297,3 +304,63 @@
     data:
       addon: core_duckdns
   id: '6969696969686'
+- id: '1583823415456'
+  alias: Thong_bao_khi_cua_mo_qua_5p
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{{states.sensor.time_open_door_sensor.state == "5 minutes"}}'
+  condition: []
+  action:
+  - data:
+      data:
+        tag: mo-cua-qua-lau
+    data_template:
+      message: Cửa đã mở được {{ states('sensor.time_open_door_sensor') }}.
+    service: notify.thong_bao
+- id: '1583826219348'
+  alias: ZZZ_Thongbaokhitroimua
+  description: Thông báo khi trời mưa (thay cảm biến mưa bằng đèn)
+  trigger:
+  - entity_id: switch.light_door
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      data:
+        tag: notification-troi-mua
+    data_template:
+      message: Trời đang mưa
+    service: notify.thong_bao
+- id: '1583831000237'
+  alias: Canh_bao_khi_cua_vua_mo
+  description: ''
+  trigger:
+  - entity_id: sensor.sensor_door
+    from: Đóng cửa
+    platform: state
+    to: Mở cửa
+  condition: []
+  action:
+  - data:
+      data:
+        tag: notification-cua-vua-dc-mo
+    data_template:
+      message: Cửa vừa mở.
+    service: notify.thong_bao
+- id: '1583831246917'
+  alias: ZZZ_thongbaokhichatluongkhongkhihon500
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{{ states.sensor.airquality.state | float > 500 }}'
+  condition: []
+  action:
+  - data:
+      data:
+        tag: notification-canh-bao-clkk
+    data_template:
+      message: 'Chất lượng không khí ở mức xấu: {{ states(''sensor.sensor'') }} ppm'
+    service: notify.thong_bao

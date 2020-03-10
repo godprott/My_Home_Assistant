@@ -142,7 +142,7 @@
                                             },
                                             "icon": "mdi:checkbox-marked-outline",
                                             "icon_height": "35px",
-                                            "name": "Save Delay",
+                                            "name": "Save Delay Time",
                                             "show_icon": true,
                                             "show_name": true,
                                             "tap_action": {
@@ -195,6 +195,9 @@
                                             "entity": "sensor.sensor_door"
                                         },
                                         {
+                                            "entity": "sensor.time_open_door_sensor"
+                                        },
+                                        {
                                             "entity": "sensor.bell_state"
                                         },
                                         {
@@ -240,7 +243,7 @@
                                 }
                             ],
                             "show_header_toggle": false,
-                            "title": "N\u1ebfu nhi\u1ec7t \u0111\u1ed9 > 45 \u0111\u1ed9, b\u1eadt c\u00f2i b\u00e1o ch\u00e1y",
+                            "title": "N\u1ebfu nhi\u1ec7t \u0111\u1ed9 > 45 \u0111\u1ed9, th\u00f4ng b\u00e1o v\u00e0 b\u1eadt c\u00f2i b\u00e1o ch\u00e1y",
                             "type": "entities"
                         },
                         {
@@ -299,6 +302,26 @@
                                 }
                             ],
                             "title": "\u0110i\u1ec1u h\u00f2a",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "automation.thongbaokhitroimua"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "C\u1ea3nh b\u00e1o tr\u1eddi m\u01b0a",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "automation.zzz_thongbaokhichatluongkhongkhihon500"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "C\u1ea3nh b\u00e1o ch\u1ea5t l\u01b0\u1ee3ng kh\u00f4ng kh\u00ed",
                             "type": "entities"
                         }
                     ],
