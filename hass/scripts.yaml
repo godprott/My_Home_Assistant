@@ -31,3 +31,258 @@
       retain: true
       topic: control/doorbell/mode
     service: mqtt.publish
+    
+# REMOTE
+'1583920006993':
+  alias: power
+  sequence:
+  - data:
+      payload: "power"
+      topic: remote/command
+    service: mqtt.publish
+'1583920006994':
+  alias: tattieng
+  sequence:
+  - data:
+      payload: "tattieng"
+      topic: remote/command
+    service: mqtt.publish
+'1583920006995':
+  alias: audio
+  sequence:
+  - data:
+      payload: "audio"
+      topic: remote/command
+    service: mqtt.publish
+'1583920006996':
+  alias: sub
+  sequence:
+  - data:
+      payload: "sub"
+      topic: remote/command
+    service: mqtt.publish
+'1583920006997':
+  alias: f1
+  sequence:
+  - data:
+      payload: "f1"
+      topic: remote/command
+    service: mqtt.publish
+'1583920006998':
+  alias: f2
+  sequence:
+  - data:
+      payload: "f2"
+      topic: remote/command
+    service: mqtt.publish
+'1583920006999':
+  alias: f3
+  sequence:
+  - data:
+      payload: "f3"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007000':
+  alias: f4
+  sequence:
+  - data:
+      payload: "f4"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007001':
+  alias: home
+  sequence:
+  - data:
+      payload: "home"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007002':
+  alias: menu
+  sequence:
+  - data:
+      payload: "menu"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007003':
+  alias: back
+  sequence:
+  - data:
+      payload: "back"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007004':
+  alias: ok
+  sequence:
+  - data:
+      payload: "ok"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007005':
+  alias: len
+  sequence:
+  - data:
+      payload: "len"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007006':
+  alias: xuong
+  sequence:
+  - data:
+      payload: "xuong"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007007':
+  alias: trai
+  sequence:
+  - data:
+      payload: "trai"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007008':
+  alias: phai
+  sequence:
+  - data:
+      payload: "phai"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007009':
+  alias: vvv
+  sequence:
+  - data:
+      payload: "<<"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007010':
+  alias: vvv2
+  sequence:
+  - data:
+      payload: ">>"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007011':
+  alias: vvv3
+  sequence:
+  - data:
+      payload: ">||"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007012':
+  alias: vuong
+  sequence:
+  - data:
+      payload: "vuong"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007013':
+  alias: vol+
+  sequence:
+  - data:
+      payload: "vol+"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007014':
+  alias: vol-
+  sequence:
+  - data:
+      payload: "vol-"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007015':
+  alias: ch+
+  sequence:
+  - data:
+      payload: "ch+"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007016':
+  alias: ch-
+  sequence:
+  - data:
+      payload: "ch-"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007017':
+  alias: mot
+  sequence:
+  - data:
+      payload: "mot"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007018':
+  alias: hai
+  sequence:
+  - data:
+      payload: "hai"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007019':
+  alias: ba
+  sequence:
+  - data:
+      payload: "ba"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007020':
+  alias: bon
+  sequence:
+  - data:
+      payload: "bon"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007021':
+  alias: nam
+  sequence:
+  - data:
+      payload: "nam"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007022':
+  alias: sau
+  sequence:
+  - data:
+      payload: "sau"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007023':
+  alias: bay
+  sequence:
+  - data:
+      payload: "bay"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007024':
+  alias: tam
+  sequence:
+  - data:
+      payload: "tam"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007025':
+  alias: chin
+  sequence:
+  - data:
+      payload: "chin"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007026':
+  alias: khong
+  sequence:
+  - data:
+      payload: "khong"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007027':
+  alias: del
+  sequence:
+  - data:
+      payload: "del"
+      topic: remote/command
+    service: mqtt.publish
+'1583920007028':
+  alias: caps/num
+  sequence:
+  - data:
+      payload: "caps/num"
+      topic: remote/command
+    service: mqtt.publish
+
