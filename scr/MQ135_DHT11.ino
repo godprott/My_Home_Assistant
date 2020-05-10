@@ -84,6 +84,9 @@ void loop() {
   float resistance = mq135_sensor.getResistance();
   Serial.print("\t Resistance: ");
   Serial.print(resistance);
+  float correctedRZero = mq135_sensor.getCorrectedRZero(temperature, humidity);
+  Serial.println("Rzero: ");
+  Serial.print(correctedRZero);
   client.publish(temperature_topic, String(temperature).c_str(), true);   //false: ko cho tin nhan giu lai tren mqtt server
   client.publish(humidity_topic, String(humidity).c_str(), true);    
   client.publish(air_quality_topic, String(correctedPPM).c_str(), true);
